@@ -1,4 +1,5 @@
 import re
+import hashlib
 
 def getPassword():
     return input("Entrez votre mot de passe : ")
@@ -25,12 +26,25 @@ def validPassword(password):
 
     return True
 
+ 
+def hash_password(password):
+    psswd = password
+    sha256 = hashlib.sha256()
+    # .encode() pour transformer string en bytes
+    sha256.update(psswd.encode())
+    psswd_hash = sha256.hexdigest()
+    
+    print(f"Hash:{psswd_hash}")
+
+
 def main():
     while True:
         password = getPassword()
 
         if validPassword(password):
             print("Mot de passe valide.")
+            hash_password(password)
+
             break
 
 
